@@ -18,7 +18,33 @@ function submitHandler(){
        harga: +hargaValue
     }
     carts.push(tempObj)
-    console.log(carts)
+    getCarts()
+    // console.log(carts)
 }
 
-BtnSubmit.addEventListener("click", submitHandler)
+function getCarts(){
+
+    let tBody = document.getElementById('tBody');
+    tBody.innerHTML = ''
+    carts.forEach(cart => {
+       tBody.innerHTML += `
+       <tr>
+           <td>${cart.id}</td>
+           <td>${cart.nama}</td>
+           <td>${cart.harga}</td>
+       </tr>`
+    })
+}
+
+let BtnPrint = document.getElementById('btnPrint')
+
+BtnSubmit.addEventListener('click', submitHandler)
+
+function printHandler(){
+    // console.log("Cetak");
+    document.querySelector('.form-box').style.display = 'none';
+    BtnPrint.style.display = 'none';
+    window.print()
+}
+
+BtnPrint.addEventListener('click', printHandler)
