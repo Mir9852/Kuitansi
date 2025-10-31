@@ -11,12 +11,14 @@ function submitHandler(){
     }
     let barangValue = document.getElementById('barang').value;
     let hargaValue = document.getElementById('harga').value;
+    let namaValue = document.getElementById('nama').value;
 
     let tempObj = {
        id,
        nama: barangValue,
        harga: +hargaValue
     }
+    document.getElementById('namaCart').innerText = namaValue;
     carts.push(tempObj)
     getCarts()
     // console.log(carts)
@@ -36,15 +38,24 @@ function getCarts(){
     })
 }
 
-let BtnPrint = document.getElementById('btnPrint')
-
 BtnSubmit.addEventListener('click', submitHandler)
+
+const style = document.createElement('style');
+style.textContent = `
+    @media print {
+        .form-box, #btnPrint {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    }`;
+document.head.appendChild(style);
+
+const BtnPrint = document.querySelector('#btnPrint');
 
 function printHandler(){
     // console.log("Cetak");
-    document.querySelector('.form-box').style.display = 'none';
-    BtnPrint.style.display = 'none';
-    window.print()
+    window.print();
 }
 
-BtnPrint.addEventListener('click', printHandler)
+if(BtnPrint) {BtnPrint.addEventListener('click', printHandler)
+}
